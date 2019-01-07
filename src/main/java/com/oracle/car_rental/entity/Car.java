@@ -32,17 +32,17 @@ public class Car {
     @Column(columnDefinition = "datetime COMMENT '初次购买日期'")
     private Date buyTime;
 
-    @Column(columnDefinition = "varchar(255) COMMENT '日租金'")
-    private String dailyRental;
+    @Column(columnDefinition = "integer(255) COMMENT '日租金'")
+    private Integer dailyRent;
 
     @Column(columnDefinition = "datetime COMMENT '出租起始时间'")
-    private Date rentalStartTime;
+    private Date rentStartTime;
 
     @Column(columnDefinition = "datetime COMMENT '出租截止时间'")
-    private Date rentalDeadLine;
+    private Date rentDeadLine;
 
-    @Column(columnDefinition = "varchar(255) COMMENT '盈利'")
-    private String profit;
+    @Column(columnDefinition = "integer(255) COMMENT '盈利'")
+    private Integer profit;
 
     /**
      * true正常  false维修

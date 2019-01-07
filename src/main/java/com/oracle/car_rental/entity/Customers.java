@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 public class Customers {
-
     @Id
     private Long id;
 
@@ -24,8 +23,8 @@ public class Customers {
     private Long aid;
 
     @NotNull
-    @Column(columnDefinition = "integer(255) COMMENT '身份证号码'")
-    private Integer idNumber;
+    @Column(columnDefinition = "varchar(255) COMMENT '身份证号码'")
+    private String idNumber;
 
     @Column(columnDefinition = "varchar(255) COMMENT '姓名'")
     private String name;
@@ -40,6 +39,6 @@ public class Customers {
 
     @NotNull
     @Column(columnDefinition = "varchar(255) COMMENT '现在租车'")
-    private String rentalCar;
+    private String rentCar;
 
 }

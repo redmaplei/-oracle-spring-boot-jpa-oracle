@@ -33,24 +33,24 @@ public class RentalInfo {
     private String phoneNumber;
 
     @Column(columnDefinition = "datetime COMMENT '租车时间'")
-    private Date rentalTime;
+    private Date rentTime;
 
     @Column(columnDefinition = "datetime COMMENT '预期还车时间'")
     private Date preDeadLine;
 
     @Column(columnDefinition = "datetime COMMENT '还车时间'")
-    private Date rentalDeadLine;
+    private Date rentDeadLine;
 
-    @Column(columnDefinition = "varchar(255) COMMENT '押金'")
-    private String deposit;
+    @Column(columnDefinition = "integer(255) COMMENT '押金'")
+    private Integer deposit;
 
     @Column(columnDefinition = "varchar(255) COMMENT '车辆状况描述'")
     private String carStatusDescribe;
 
     @Column(columnDefinition = "varchar(255) COMMENT '出租经手人编号'")
-    private String rentalAgentNumber;
+    private String rentAgentNumber;
 
     @Column(columnDefinition = "varchar(255) COMMENT '还车经手人编号'")
-    private String returnAgentNumber;
+    private String repayAgentNumber;
 
 }

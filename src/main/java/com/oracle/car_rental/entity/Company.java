@@ -23,7 +23,6 @@ public class Company {
     @Column(columnDefinition = "varchar(255) COMMENT '租赁公司名'")
     private String companyName;
 
-    @NotNull
     @Column(columnDefinition = "varchar(255) COMMENT '电话'")
     private String phoneNumber;
 
