@@ -1,14 +1,10 @@
 package com.oracle.car_rental.utils;
 
 
+import com.oracle.car_rental.exception.FrameErrorCodeEnums;
 import com.oracle.car_rental.exception.IErrorCode;
-import com.oracle.car_rental.exception.ReadErrorCodeEnum;
 import com.oracle.car_rental.vo.ResultVO;
 
-/**
- * @author wys
- * created in 23:50 2019/1/5
- */
 public class ResultUtil {
 
     public static <T> ResultVO<T> success() {
@@ -32,7 +28,7 @@ public class ResultUtil {
     }
 
     public static <T> ResultVO<T> success(Integer count, String msg, T data) {
-        ResultVO<T> resultVO = new ResultVO<>(ReadErrorCodeEnum.SUCCESS);
+        ResultVO<T> resultVO = new ResultVO<>(FrameErrorCodeEnums.SUCCESS);
         resultVO.setMsg(msg);
         resultVO.setCount(count);
         resultVO.setData(data);

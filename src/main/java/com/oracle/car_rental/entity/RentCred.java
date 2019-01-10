@@ -4,29 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.Table;
-
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-//import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
  * 租车凭证
  *
- * @author wys
- * created in 23:07 2019/1/7
  */
 @Data
 //@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "rentcred")
+@Entity
+//@Table(name = "rentcred")
 public class RentCred {
-    @AutoID
+    @Id
     private Long id;
 
 //    @Column(columnDefinition = "varchar(255) COMMENT '租赁公司名'")
@@ -49,6 +43,9 @@ public class RentCred {
 
 //    @Column(columnDefinition = "integer(255) COMMENT '所交押金'")
     private Integer deposit;
+
+    //    @Column(columnDefinition = "datetime COMMENT '出租起始时间'")
+    private Date rentStartTime;
 
 //    @Column(columnDefinition = "datetime COMMENT '预期还车时间'")
     private Date preDeadLine;

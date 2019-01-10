@@ -11,15 +11,9 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarVO {
+public class LeaserCarVO {
 
     private String carNumber;
-
-    private String brand;
-
-    private String describe;
-
-    private Date buyTime;
 
     private Integer dailyRent;
 

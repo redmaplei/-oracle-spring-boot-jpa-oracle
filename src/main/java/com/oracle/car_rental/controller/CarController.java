@@ -1,8 +1,14 @@
 package com.oracle.car_rental.controller;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.oracle.car_rental.entity.Car;
+import com.oracle.car_rental.entity.Leaser;
+import com.oracle.car_rental.entity.RentCred;
+import com.oracle.car_rental.entity.RepayCred;
 import com.oracle.car_rental.service.CarService;
 import com.oracle.car_rental.utils.ResultUtil;
 import com.oracle.car_rental.vo.CarVO;
+import com.oracle.car_rental.vo.LeaserCarVO;
 import com.oracle.car_rental.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +19,6 @@ import java.util.List;
 /**
  * 主要功能
  *
- * @author wys
- * created in 23:31 2019/1/7
  */
 @Slf4j
 @CrossOrigin
@@ -33,7 +37,7 @@ public class CarController {
 
         List<CarVO> carVOS = carService.getCar();
 
-        return ResultUtil.success( carVOS.isEmpty() ? carVOS : "暂无数据");
+        return ResultUtil.success(carVOS.isEmpty() ? "暂无数据" : carVOS);
     }
 
     /**
@@ -42,46 +46,65 @@ public class CarController {
      *
      */
     @PostMapping("/leaserget")
-    public ResultVO leaserGetCar() {
+    public ResultVO leaserGetCar(@RequestParam String idNumber) {
 
-        return ResultUtil.success();
+        List<LeaserCarVO> carVOS = carService.leaserGetCar(idNumber);
+
+        return ResultUtil.success(carVOS.isEmpty() ? "暂无数据" : carVOS);
     }
 
     /**
      * 公司业务员租车业务
      * 只有正常状态的车辆可出租
      */
-    @PostMapping("/rent")
-    public ResultVO rentCar() {
+    @GetMapping("/rent")
+    public ResultVO rentCar(@RequestParam String companySalesmanName,
+                            @RequestParam String idNumber,
+                            @RequestParam String carNumber,
+                            @RequestParam Integer rentDay,
+                            @RequestParam Integer deposit) {
 
-        return ResultUtil.success();
+        RentCred rentCred = carService.rentCar(companySalesmanName, idNumber, carNumber, rentDay, deposit);
+        if (ObjectUtil.isNotNull(rentCred)) {
+            return ResultUtil.success(1,"租车成功 租车凭证", rentCred);
+        }
+        return ResultUtil.success("租车失败");
     }
 
     /**
      * 公司业务员还车业务
      */
     @PostMapping("/repay")
-    public ResultVO repayCar() {
-
-        return ResultUtil.success();
+    public ResultVO repayCar(@RequestParam String companySalesmanName,
+                             @RequestParam String idNumber,
+                             @RequestParam String carNumber) {
+        RepayCred repayCred = carService.repayCar(companySalesmanName, idNumber, carNumber);
+        if (ObjectUtil.isNotNull(repayCred)) {
+            return ResultUtil.success(1,"还车成功 还车凭证", repayCred);
+        }
+        return ResultUtil.success("还车失败");
     }
 
     /**
      * 管理员可维护车辆的基本信息
      */
     @PostMapping("/updatecar")
-    public ResultVO adminUpdateCar() {
+    public ResultVO adminUpdateCar(@RequestParam Long aid, @RequestBody Car car) {
 
-        return ResultUtil.success();
+        Boolean result = carService.adminUpdateCar(aid, car);
+
+        return ResultUtil.success( result ? "车辆的基本信息更新成功" : "车辆的基本信息更新失败" );
     }
 
     /**
      * 管理员可维护出租人的基本信息
      */
     @PostMapping("/updatelea")
-    public ResultVO adminUpdateLeaser() {
+    public ResultVO adminUpdateLeaser(@RequestParam Long aid, @RequestBody Leaser leaser) {
 
-        return ResultUtil.success();
+        Boolean result = carService.adminUpdateLeaser(aid, leaser);
+
+        return ResultUtil.success( result ? "出租人的基本信息更新成功" : "出租人的基本信息更新失败" );
     }
 
     /**

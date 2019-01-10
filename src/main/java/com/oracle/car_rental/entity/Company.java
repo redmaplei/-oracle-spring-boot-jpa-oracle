@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.Table;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+//import org.beetl.sql.core.annotatoin.AutoID;
+//import org.beetl.sql.core.annotatoin.Table;
 
 //import javax.persistence.Column;
 //import javax.persistence.Entity;
@@ -15,18 +18,17 @@ import org.beetl.sql.core.annotatoin.Table;
 /**
  * 租赁公司
  *
- * @author wys
- * created in 22:28 2019/1/7
  */
 @Data
 //@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "company")
+@Entity
+//@Table(name = "company")
 public class Company {
 
-    @AutoID
+    @Id
     private Long id;
 
 //    @Column(columnDefinition = "varchar(255) COMMENT '租赁公司名'")

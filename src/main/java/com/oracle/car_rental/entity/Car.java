@@ -4,29 +4,28 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.Table;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
  * 车辆
  *
- * @author wys
- * created in 21:35 2019/1/7
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "car")
+@Entity
+//@Table(name = "car")
 public class Car {
 
-    @AutoID
+    @Id
     private Long id;
 
 //    @Column(columnDefinition = "integer(255) COMMENT '车辆的号牌'")
-    private Integer carNumber;
+    private String carNumber;
 
 //    @Column(columnDefinition = "varchar(255) COMMENT '品牌'")
     private String brand;
@@ -62,4 +61,9 @@ public class Car {
 //    @Column(columnDefinition = "bit(1) COMMENT '是否是正常'")
     private String isNormal;
 
+    /**
+     *是不是在出租中 空闲 出租中
+     *
+     */
+    private String isRent;
 }

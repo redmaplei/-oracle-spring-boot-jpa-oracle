@@ -4,29 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.Table;
-
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * 出租人
  *
- * @author wys
- * created in 21:30 2019/1/7
  */
 @Data
 //@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "leaser")
+@Entity
+//@Table(name = "leaser")
 public class Leaser {
 
-    @AutoID
+    @Id
     private Long id;
 
 //    @Column(columnDefinition = "integer(255) COMMENT '账号id'")

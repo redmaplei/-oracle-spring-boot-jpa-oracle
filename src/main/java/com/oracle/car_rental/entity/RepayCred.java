@@ -4,28 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.Table;
-
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
  * 还车凭证
  *
- * @author wys
- * created in 23:07 2019/1/7
  */
 @Data
 //@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "repaycred")
+@Entity
+//@Table(name = "repaycred")
 public class RepayCred {
-    @AutoID
+    @Id
     private Long id;
 
 //    @Column(columnDefinition = "varchar(255) COMMENT '租赁公司名'")
@@ -53,7 +48,7 @@ public class RepayCred {
     private Integer theRent;
 
 //    @Column(columnDefinition = "varchar(255) COMMENT '补交金额'")
-    private String payAmount;
+    private Integer payAmount;
 
     /**
      * 当逾期还车押金不够时

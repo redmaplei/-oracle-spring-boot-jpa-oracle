@@ -4,26 +4,25 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.Table;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * 账号表
  *
- * @author wys
- * created in 22:52 2019/1/7
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "account")
+@Entity
+//@Table(name = "account")
 public class Account {
     /**
      * 账号
      */
-    @AutoID
+    @Id
     private Long aid;
 
 //    @Column(columnDefinition = "varchar(255) COMMENT '角色'")

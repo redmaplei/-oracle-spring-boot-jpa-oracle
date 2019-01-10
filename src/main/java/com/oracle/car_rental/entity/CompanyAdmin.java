@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.Table;
+//import org.beetl.sql.core.annotatoin.AutoID;
+//import org.beetl.sql.core.annotatoin.Table;
 
 //import javax.persistence.Column;
 //import javax.persistence.Entity;
 //import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -23,9 +25,10 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "companyadmin")
+@Entity
+//@Table(name = "companyadmin")
 public class CompanyAdmin {
-    @AutoID
+    @Id
     private Long id;
 
 //    @Column(columnDefinition = "integer(255) COMMENT '账号id'")

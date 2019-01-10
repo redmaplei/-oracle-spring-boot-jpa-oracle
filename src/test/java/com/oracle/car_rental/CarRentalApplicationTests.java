@@ -1,7 +1,6 @@
 package com.oracle.car_rental;
 
-import com.oracle.car_rental.dao.AccountDao;
-import com.oracle.car_rental.dao.TDao;
+import com.oracle.car_rental.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,16 +14,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CarRentalApplicationTests {
 
 	@Autowired
-	private AccountDao accountDao;
+	private AccountRepository accountRepository;
 
-	@Autowired
-	private TDao tDao;
+//	@Autowired
+//	private TRepository tRepository;
 
 	@Test
 	public void contextLoads() {
 
 //		log.info("sdf {}", accountDao.createLambdaQuery().select());
-		log.info("sdf {}", tDao.createLambdaQuery().select());
+//		log.info("sdf {}", tRepository.findAll());
+
+		log.info("24 {}", accountRepository.findAll());
 
 	}
 

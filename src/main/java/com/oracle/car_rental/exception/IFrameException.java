@@ -1,9 +1,8 @@
 package com.oracle.car_rental.exception;
 
 /**
- * @author wys
- * created in 18:02 2019/1/6
+ * 异常接口
  */
 public interface IFrameException {
-    IErrorCode getIErrorCode();
+    IErrorCode getErrorCode();
 }
