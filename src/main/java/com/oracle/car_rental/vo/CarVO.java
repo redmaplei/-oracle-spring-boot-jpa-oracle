@@ -19,13 +19,13 @@ public class CarVO {
 
     private String describe;
 
-    private Date buyTime;
+    private String buyTime;
 
     private Integer dailyRent;
 
-    private Date rentStartTime;
+    private String rentStartTime;
 
-    private Date rentDeadLine;
+    private String rentDeadLine;
 
     private Integer profit;
 

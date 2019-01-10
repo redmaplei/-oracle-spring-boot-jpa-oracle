@@ -14,12 +14,14 @@ public enum FrameErrorCodeEnums implements IErrorCode {
     OBJECT_ERROR(-103, "空对象"),
 
 
+    ARGS_EMPTY_ERROR(599, "有参数为空"),
     BIND_ARGS_ERROR(600, "参数绑定异常"),
     CARORCUSTOMER_EMPTY_ERROR(601, "汽车或者出租人不存在"),
     CAR_EXIST(602, "汽车已出租"),
     COMPANYS_EXIST(603, "没有这个业务员"),
     RENTINFO_EMPTY(604, "没有这次租车"),
     ADMIN_EMPTY(605, "没有这个管理员"),
+    AIDORIDNUMBER_EMPTY_EORROR(606, "出租人的账号或者身份证为空"),
     // 用户部分
     WRONG_ACCOUNT(404, "不存在账号");
 

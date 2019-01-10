@@ -39,13 +39,13 @@ public class RentalInfo {
     private String phoneNumber;
 
 //    @Column(columnDefinition = "datetime COMMENT '租车时间'")
-    private Date rentTime;
+    private String rentTime;
 
 //    @Column(columnDefinition = "datetime COMMENT '预期还车时间'")
-    private Date preDeadLine;
+    private String preDeadLine;
 
 //    @Column(columnDefinition = "datetime COMMENT '还车时间'")
-    private Date rentDeadLine;
+    private String rentDeadLine;
 
 //    @Column(columnDefinition = "integer(255) COMMENT '押金'")
     private Integer deposit;

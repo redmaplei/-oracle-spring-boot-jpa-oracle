@@ -35,12 +35,14 @@ public class ResultUtil {
         return resultVO;
     }
 
-    public static <T> ResultVO<T> failure(IErrorCode errorCode) {
-        return failure(errorCode, null);
-    }
-
     public static <T> ResultVO<T> failure(String msg) {
         return failure(null, msg);
+    }
+
+    public static <T> ResultVO<T> failure(IErrorCode errorCode) {
+        ResultVO<T> resultVO = new ResultVO<>(errorCode);
+//        resultVO.setMsg(msg);
+        return resultVO;
     }
 
     public static <T> ResultVO<T> failure(IErrorCode errorCode, String msg) {

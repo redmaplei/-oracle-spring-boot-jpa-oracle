@@ -42,7 +42,7 @@ public class RepayCred {
     private Integer deposit;
 
 //    @Column(columnDefinition = "datetime COMMENT '还车时间'")
-    private Date rentDeadLine;
+    private String rentDeadLine;
 
 //    @Column(columnDefinition = "integer(255) COMMENT '租金'")
     private Integer theRent;

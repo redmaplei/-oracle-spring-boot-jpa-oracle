@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LeaserRepository extends JpaRepository<Leaser ,Long> {
+
+    Leaser findByAid(Long aid);
+
 }

@@ -5,6 +5,7 @@ import com.oracle.car_rental.entity.Car;
 import com.oracle.car_rental.entity.Leaser;
 import com.oracle.car_rental.entity.RentCred;
 import com.oracle.car_rental.entity.RepayCred;
+import com.oracle.car_rental.repository.RentCredRepository;
 import com.oracle.car_rental.service.CarService;
 import com.oracle.car_rental.utils.ResultUtil;
 import com.oracle.car_rental.vo.CarVO;
@@ -14,6 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,25 +51,32 @@ public class CarController {
      *
      */
     @PostMapping("/leaserget")
-    public ResultVO leaserGetCar(@RequestParam String idNumber) {
+    public ResultVO leaserGetCar(@RequestParam Long aid, @RequestParam String idNumber) {
 
-        List<LeaserCarVO> carVOS = carService.leaserGetCar(idNumber);
+        List<LeaserCarVO> carVOS = carService.leaserGetCar(aid, idNumber);
 
         return ResultUtil.success(carVOS.isEmpty() ? "暂无数据" : carVOS);
+    }
+
+    @Autowired
+    private RentCredRepository rentCredRepository;
+    @GetMapping("/test")
+    public void test() {
+        rentCredRepository.save(new RentCred());
     }
 
     /**
      * 公司业务员租车业务
      * 只有正常状态的车辆可出租
      */
-    @GetMapping("/rent")
-    public ResultVO rentCar(@RequestParam String companySalesmanName,
+    @PostMapping("/rent")
+    public ResultVO rentCar(@RequestParam Long salesmanAid,
                             @RequestParam String idNumber,
                             @RequestParam String carNumber,
                             @RequestParam Integer rentDay,
                             @RequestParam Integer deposit) {
 
-        RentCred rentCred = carService.rentCar(companySalesmanName, idNumber, carNumber, rentDay, deposit);
+        RentCred rentCred = carService.rentCar(salesmanAid, idNumber, carNumber, rentDay, deposit);
         if (ObjectUtil.isNotNull(rentCred)) {
             return ResultUtil.success(1,"租车成功 租车凭证", rentCred);
         }
@@ -75,10 +87,10 @@ public class CarController {
      * 公司业务员还车业务
      */
     @PostMapping("/repay")
-    public ResultVO repayCar(@RequestParam String companySalesmanName,
+    public ResultVO repayCar(@RequestParam Long salesmanAid,
                              @RequestParam String idNumber,
                              @RequestParam String carNumber) {
-        RepayCred repayCred = carService.repayCar(companySalesmanName, idNumber, carNumber);
+        RepayCred repayCred = carService.repayCar(salesmanAid, idNumber, carNumber);
         if (ObjectUtil.isNotNull(repayCred)) {
             return ResultUtil.success(1,"还车成功 还车凭证", repayCred);
         }

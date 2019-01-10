@@ -41,16 +41,16 @@ public class Car {
     private String idNumber;
 
 //    @Column(columnDefinition = "datetime COMMENT '初次购买日期'")
-    private Date buyTime;
+    private String buyTime;
 
 //    @Column(columnDefinition = "integer(255) COMMENT '日租金'")
     private Integer dailyRent;
 
 //    @Column(columnDefinition = "datetime COMMENT '出租起始时间'")
-    private Date rentStartTime;
+    private String rentStartTime;
 
 //    @Column(columnDefinition = "datetime COMMENT '出租截止时间'")
-    private Date rentDeadLine;
+    private String rentDeadLine;
 
 //    @Column(columnDefinition = "integer(255) COMMENT '盈利'")
     private Integer profit;

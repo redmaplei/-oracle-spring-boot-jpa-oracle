@@ -17,9 +17,9 @@ public class LeaserCarVO {
 
     private Integer dailyRent;
 
-    private Date rentStartTime;
+    private String rentStartTime;
 
-    private Date rentDeadLine;
+    private String rentDeadLine;
 
     private Integer profit;
 

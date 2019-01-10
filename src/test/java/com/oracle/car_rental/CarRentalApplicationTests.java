@@ -1,6 +1,8 @@
 package com.oracle.car_rental;
 
+import com.oracle.car_rental.entity.RentCred;
 import com.oracle.car_rental.repository.AccountRepository;
+import com.oracle.car_rental.repository.RentCredRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +18,9 @@ public class CarRentalApplicationTests {
 	@Autowired
 	private AccountRepository accountRepository;
 
+	@Autowired
+	private RentCredRepository credRepository;
+
 //	@Autowired
 //	private TRepository tRepository;
 
@@ -25,7 +30,10 @@ public class CarRentalApplicationTests {
 //		log.info("sdf {}", accountDao.createLambdaQuery().select());
 //		log.info("sdf {}", tRepository.findAll());
 
-		log.info("24 {}", accountRepository.findAll());
+//		log.info("24 {}", accountRepository.findAll());
+
+
+		credRepository.save(new RentCred());
 
 	}
 

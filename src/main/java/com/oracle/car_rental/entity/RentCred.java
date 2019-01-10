@@ -13,7 +13,6 @@ import java.util.Date;
  *
  */
 @Data
-//@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,10 +44,10 @@ public class RentCred {
     private Integer deposit;
 
     //    @Column(columnDefinition = "datetime COMMENT '出租起始时间'")
-    private Date rentStartTime;
+    private String rentStartTime;
 
 //    @Column(columnDefinition = "datetime COMMENT '预期还车时间'")
-    private Date preDeadLine;
+    private String preDeadLine;
 
     /**
      * 就是业务员的编号

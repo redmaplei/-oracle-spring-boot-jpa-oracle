@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CompanySalesmanRepository extends JpaRepository<CompanySalesman ,Long> {
 
-    CompanySalesman findByCompanyName(String name);
-
+    CompanySalesman findBySalesmanName(String salesmanName);
+    CompanySalesman findByAid(Long aid);
 }
