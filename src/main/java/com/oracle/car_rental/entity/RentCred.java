@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.lang.annotation.Native;
 import java.util.Date;
 
 /**
@@ -19,7 +22,10 @@ import java.util.Date;
 @Entity
 //@Table(name = "rentcred")
 public class RentCred {
+
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Native
     private Long id;
 
 //    @Column(columnDefinition = "varchar(255) COMMENT '租赁公司名'")
@@ -54,5 +60,8 @@ public class RentCred {
      */
 //    @Column(columnDefinition = "varchar(255) COMMENT '出租经手人编号'")
     private String rentAgentNumber;
+
+//    //    @Column(columnDefinition = "integer(255) COMMENT 'rentInfoId'")
+//    private Long rentInfoId;
 
 }

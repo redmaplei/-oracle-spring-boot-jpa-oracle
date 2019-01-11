@@ -6,6 +6,7 @@ import com.oracle.car_rental.entity.Leaser;
 import com.oracle.car_rental.entity.RentCred;
 import com.oracle.car_rental.entity.RepayCred;
 import com.oracle.car_rental.repository.RentCredRepository;
+import com.oracle.car_rental.repository.RepayCredRepository;
 import com.oracle.car_rental.service.CarService;
 import com.oracle.car_rental.utils.ResultUtil;
 import com.oracle.car_rental.vo.CarVO;
@@ -56,13 +57,6 @@ public class CarController {
         List<LeaserCarVO> carVOS = carService.leaserGetCar(aid, idNumber);
 
         return ResultUtil.success(carVOS.isEmpty() ? "暂无数据" : carVOS);
-    }
-
-    @Autowired
-    private RentCredRepository rentCredRepository;
-    @GetMapping("/test")
-    public void test() {
-        rentCredRepository.save(new RentCred());
     }
 
     /**

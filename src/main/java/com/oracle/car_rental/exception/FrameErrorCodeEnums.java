@@ -22,6 +22,7 @@ public enum FrameErrorCodeEnums implements IErrorCode {
     RENTINFO_EMPTY(604, "没有这次租车"),
     ADMIN_EMPTY(605, "没有这个管理员"),
     AIDORIDNUMBER_EMPTY_EORROR(606, "出租人的账号或者身份证为空"),
+    RENT_EMPTY_EORROR(607, "现在没租有车"),
     // 用户部分
     WRONG_ACCOUNT(404, "不存在账号");
 

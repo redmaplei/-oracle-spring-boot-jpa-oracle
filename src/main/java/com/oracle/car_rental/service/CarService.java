@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -100,14 +97,12 @@ public class CarService {
         // 先判断对应的数据是否有
         Car car = carRepository.findByCarNumber(carNumber);
         Customers customers = customersRepository.findByIdNumber(idNumber);
-        log.info("customers == {} ", customers);
-        log.info("companySalesmanName == {} ", salesmanAid);
-//        CompanySalesman companySalesman = companySalesmanRepository.findBySalesmanName(salesmanName);
+//        if (!customers.getRentCar().equals("无")) {
+//            throw new FrameRuntimeException(FrameErrorCodeEnums.)
+//        }
+
         CompanySalesman companySalesman = companySalesmanRepository.findByAid(salesmanAid);
-//        log.info("byAid == {} ", byAid);
-        log.info("0===== {}", companySalesman);
-        log.info("{}", companyRepository);
-        Company company = companyRepository.findByCompanyName(companySalesman.getCompanyName());
+        List<Company> company = companyRepository.findAllByCompanyName(companySalesman.getCompanyName());
         if (ObjectUtil.isNull(car) || ObjectUtil.isNull(customers)) {
             throw new FrameRuntimeException(FrameErrorCodeEnums.CARORCUSTOMER_EMPTY_ERROR);
         }
@@ -125,10 +120,25 @@ public class CarService {
         // 可以出租汽车
         // 打印租车凭证
         RentCred rentCred = new RentCred();
+
+        // 由于jpa orm不支持自增主键
+        List<RentCred> all = rentCredRepository.findAll();
+        log.info("===== {}", all);
+        if (all.isEmpty()) {
+            rentCred.setId(0L);
+        } else {
+            rentCred.setId(all.get(all.size() - 1).getId() + 1);
+        }
+
+        // 号数
+        Random ra = new Random();
+        int i = ra.nextInt(1000) + 300;
+        rentCred.setCredNumber(456 + i);
+
         rentCred.setCarNumber(car.getCarNumber());
         rentCred.setBrand(car.getBrand());
-        rentCred.setCompanyName(company.getCompanyName());
-        rentCred.setPhoneNumber(company.getPhoneNumber());
+        rentCred.setCompanyName(company.get(0).getCompanyName());
+        rentCred.setPhoneNumber(company.get(0).getPhoneNumber());
         rentCred.setDailyRent(car.getDailyRent());
         // 押金
         rentCred.setDeposit(deposit);
@@ -136,16 +146,17 @@ public class CarService {
         // 时间
         String rentDate = getCurrDate();
         String repayDate = getaddDate(rentDay);
-//        Date rentDate = new Date();
-//        Date repayDate = new Date();
         rentCred.setRentStartTime(rentDate);
-//        rentCred.setPreDeadLine(date.);  ======
         rentCred.setRentAgentNumber(companySalesman.getAid().toString());
 
         RentCred save = rentCredRepository.save(rentCred);
 
         // 租车记录信息
         RentalInfo rentalInfo = new RentalInfo();
+        // 由于jpa orm不支持自增主键
+        List<RentalInfo> all1 = rentalInfoRepository.findAll();
+        rentalInfo.setId(all1.get(all1.size() - 1).getId() + 1);
+
         rentalInfo.setCarNumber(car.getCarNumber());
         rentalInfo.setIdNumber(customers.getIdNumber());
         rentalInfo.setName(customers.getName());
@@ -153,7 +164,12 @@ public class CarService {
         rentalInfo.setRentTime(rentDate);
         rentalInfo.setRentDeadLine(repayDate);
         rentalInfo.setRentAgentNumber(companySalesman.getAid().toString());
+        rentalInfo.setDeposit(rentCred.getDeposit());
         rentalInfoRepository.save(rentalInfo);
+
+        // 租车成功 rentCar会显示 租车的车牌号
+        customers.setRentCar("租车" + car.getCarNumber());
+        customersRepository.save(customers);
 
         return rentCred;
     }
@@ -167,9 +183,14 @@ public class CarService {
             throw new FrameRuntimeException(FrameErrorCodeEnums.BIND_ARGS_ERROR);
         }
 
-        RentalInfo rentalInfo = rentalInfoRepository.findByIdNumberAndCarNumber(idNumber, carNumber);
+        Customers customers = customersRepository.findByIdNumber(idNumber);
+        if (customers.getRentCar().equals("无")) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.RENT_EMPTY_EORROR);
+        }
+
+        RentalInfo rentalInfo = rentalInfoRepository.findByIdNumberAndCarNumberAndRepayAgentNumber(idNumber, carNumber, null);
         CompanySalesman companySalesman = companySalesmanRepository.findByAid(salesmanAid);
-        Company company = companyRepository.findByCompanyName(companySalesman.getCompanyName());
+        List<Company> company = companyRepository.findAllByCompanyName(companySalesman.getCompanyName());
         Car car = carRepository.findByCarNumber(carNumber);
         if (ObjectUtil.isNull(companySalesman)) {
             throw new FrameRuntimeException(FrameErrorCodeEnums.COMPANYS_EXIST);
@@ -190,8 +211,21 @@ public class CarService {
 
         // 打印换车凭证
         RepayCred repayCred = new RepayCred();
-        repayCred.setCompanyName(company.getCompanyName());
-        repayCred.setCredNumber(334);
+
+        // 由于jpa orm不支持自增主键
+        List<RepayCred> all = repayCredRepository.findAll();
+        if (ObjectUtil.isNull(all)) {
+            repayCred.setId(0L);
+        } else {
+            repayCred.setId(all.get(all.size() - 1).getId() + 1);
+        }
+
+        repayCred.setCompanyName(company.get(0).getCompanyName());
+        repayCred.setCarNumber(car.getCarNumber());
+        // 号数
+        Random ra = new Random();
+        int i = ra.nextInt(1000) + 300;
+        repayCred.setCredNumber(334 + i);
         repayCred.setBrand(car.getBrand());
         repayCred.setDailyRent(car.getDailyRent());
         repayCred.setDeposit(rentalInfo.getDeposit());
@@ -224,6 +258,10 @@ public class CarService {
         rentalInfo.setRentDeadLine(getCurrDate());
         rentalInfo.setRepayAgentNumber(String.valueOf(companySalesman.getAid()));
 
+        // 出租人租车状态修改
+        customers.setRentCar("无");
+        customersRepository.save(customers);
+
         return repayCredSave;
     }
 
@@ -231,6 +269,10 @@ public class CarService {
      * 管理员可维护车辆的基本信息
      */
     public Boolean adminUpdateCar(Long aid, Car car) {
+
+        if (ObjectUtil.isNull(aid) || ObjectUtil.isNull(car)) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.ARGS_EMPTY_ERROR);
+        }
 
         Optional<Car> byId = carRepository.findById(car.getId());
         CompanyAdmin byId1 = companyAdminRepository.findByAid(aid);

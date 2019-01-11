@@ -62,5 +62,7 @@ public class RepayCred {
 //    @Column(columnDefinition = "integer(255) COMMENT '押金退还'")
     private Integer depositRefund;
 
+    //    @Column(columnDefinition = "integer(255) COMMENT 'rentInfoId'")
+//    private Long rentInfoId;
 
 }
