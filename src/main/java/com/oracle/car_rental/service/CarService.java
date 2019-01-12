@@ -257,6 +257,7 @@ public class CarService {
         // 记录加换车时间
         rentalInfo.setRentDeadLine(getCurrDate());
         rentalInfo.setRepayAgentNumber(String.valueOf(companySalesman.getAid()));
+        rentalInfoRepository.save(rentalInfo);
 
         // 出租人租车状态修改
         customers.setRentCar("无");
@@ -276,7 +277,7 @@ public class CarService {
 
         Optional<Car> byId = carRepository.findById(car.getId());
         CompanyAdmin byId1 = companyAdminRepository.findByAid(aid);
-        if (ObjectUtil.isNull(byId)) {
+        if (!byId.isPresent()) {
             throw new FrameRuntimeException(FrameErrorCodeEnums.CAR_EXIST);
         }
         if (ObjectUtil.isNull(byId1)) {
@@ -294,7 +295,7 @@ public class CarService {
 
         Optional<Leaser> byId = leaserRepository.findById(leaser.getId());
         CompanyAdmin byId1 = companyAdminRepository.findByAid(aid);
-        if (ObjectUtil.isNull(byId)) {
+        if (!byId.isPresent()) {
             throw new FrameRuntimeException(FrameErrorCodeEnums.CAR_EXIST);
         }
         if (ObjectUtil.isNull(byId1)) {

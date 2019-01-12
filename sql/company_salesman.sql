@@ -1,0 +1,63 @@
+--------------------------------------------------------
+--  文件已创建 - 星期六-一月-12-2019   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table COMPANY_SALESMAN
+--------------------------------------------------------
+
+  CREATE TABLE "SYSTEM"."COMPANY_SALESMAN" 
+   (	"ID" NUMBER(19,0), 
+	"AID" NUMBER(19,0), 
+	"COMPANY_NAME" VARCHAR2(255 CHAR), 
+	"SALESMAN_NAME" VARCHAR2(255 CHAR)
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+ 
+
+   COMMENT ON COLUMN "SYSTEM"."COMPANY_SALESMAN"."AID" IS '账号id';
+ 
+   COMMENT ON COLUMN "SYSTEM"."COMPANY_SALESMAN"."COMPANY_NAME" IS '租赁公司名';
+ 
+   COMMENT ON COLUMN "SYSTEM"."COMPANY_SALESMAN"."SALESMAN_NAME" IS '管理员';
+REM INSERTING into SYSTEM.COMPANY_SALESMAN
+SET DEFINE OFF;
+Insert into SYSTEM.COMPANY_SALESMAN (ID,AID,COMPANY_NAME,SALESMAN_NAME) values (1,4,'科大租车','王四');
+--------------------------------------------------------
+--  DDL for Index SYS_C0010835
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYSTEM"."SYS_C0010835" ON "SYSTEM"."COMPANY_SALESMAN" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Trigger COMPANY_SALESMAN
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "SYSTEM"."COMPANY_SALESMAN" 
+   before insert on "SYSTEM"."COMPANY_SALESMAN" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."ID" is null then 
+         select ID_AUTO.nextval into :NEW."ID" from dual; 
+      end if; 
+   end if; 
+end;
+
+/
+ALTER TRIGGER "SYSTEM"."COMPANY_SALESMAN" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table COMPANY_SALESMAN
+--------------------------------------------------------
+
+  ALTER TABLE "SYSTEM"."COMPANY_SALESMAN" MODIFY ("ID" NOT NULL ENABLE);
+ 
+  ALTER TABLE "SYSTEM"."COMPANY_SALESMAN" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;

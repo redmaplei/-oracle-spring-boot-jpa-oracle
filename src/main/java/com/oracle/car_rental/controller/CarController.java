@@ -1,12 +1,10 @@
 package com.oracle.car_rental.controller;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.oracle.car_rental.entity.Car;
-import com.oracle.car_rental.entity.Leaser;
-import com.oracle.car_rental.entity.RentCred;
-import com.oracle.car_rental.entity.RepayCred;
-import com.oracle.car_rental.repository.RentCredRepository;
-import com.oracle.car_rental.repository.RepayCredRepository;
+import com.oracle.car_rental.entity.*;
+import com.oracle.car_rental.exception.FrameErrorCodeEnums;
+import com.oracle.car_rental.exception.FrameRuntimeException;
+import com.oracle.car_rental.repository.*;
 import com.oracle.car_rental.service.CarService;
 import com.oracle.car_rental.utils.ResultUtil;
 import com.oracle.car_rental.vo.CarVO;
@@ -21,6 +19,7 @@ import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 主要功能
@@ -121,4 +120,239 @@ public class CarController {
 
         return ResultUtil.success();
     }
+
+    @Autowired
+    private CustomersRepository customersRepository;
+
+    // 出租人 的增删改查
+    /**
+     * 增加出租人
+     * @param customers
+     * @return
+     */
+    @PostMapping("/addcus")
+    public ResultVO addCus(@RequestBody Customers customers) {
+        Optional<Customers> byId = customersRepository.findById(customers.getId());
+        if (byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_A_ACCOUNT);
+        }
+        customersRepository.save(customers);
+        List<Customers> all1 = customersRepository.findAll();
+        customers.setId(all1.get(all1.size() - 1).getId() + 1);
+
+        customersRepository.save(customers);
+
+
+        return ResultUtil.success("增加成功");
+    }
+
+
+    /**
+     * 删除出租人
+     * @return
+     */
+    @GetMapping("/delete")
+    public ResultVO deleteCus(@RequestParam Long id) {
+        Optional<Customers> byId = customersRepository.findById(id);
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+
+        customersRepository.deleteById(id);
+
+        return ResultUtil.success("删除成功");
+
+    }
+
+    /**
+     * 更新出租人
+     * @param customers
+     * @return
+     */
+    @PostMapping("/update")
+    public ResultVO update(@RequestBody Customers customers) {
+        Optional<Customers> byId = customersRepository.findById(customers.getId());
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+        customersRepository.save(customers);
+
+
+        return ResultUtil.success("更新成功");
+    }
+
+    /**
+     * 获得一个出租人
+     */
+    @GetMapping("/getcus")
+    public ResultVO getallcus(Long id) {
+        Optional<Customers> byId = customersRepository.findById(id);
+        log.info("{}", byId);
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+
+        Optional<Customers> byId1 = customersRepository.findById(id);
+
+        return ResultUtil.success( byId1.isPresent() ? byId : "没有这个出租人");
+
+    }
+
+
+    // 汽车 的增删改查
+
+    @Autowired
+    private CarRepository carRepository;
+    /**
+     * 增加汽车
+     * @param car
+     * @return
+     */
+    @PostMapping("/addCar")
+    public ResultVO addCar(@RequestBody Car car) {
+        Optional<Car> byId = carRepository.findById(car.getId());
+        if (byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_A_ACCOUNT);
+        }
+        carRepository.save(car);
+        List<Customers> all1 = customersRepository.findAll();
+        car.setId(all1.get(all1.size() - 1).getId() + 1);
+
+        carRepository.save(car);
+
+
+        return ResultUtil.success("增加成功");
+    }
+
+
+    /**
+     * 删除汽车
+     * @return
+     */
+    @GetMapping("/deleteCar")
+    public ResultVO deleteCar(@RequestParam Long id) {
+        Optional<Customers> byId = customersRepository.findById(id);
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+
+        customersRepository.deleteById(id);
+
+        return ResultUtil.success("删除成功");
+
+    }
+
+    /**
+     * 更新汽车
+     * @param car
+     * @return
+     */
+    @PostMapping("/updateCar")
+    public ResultVO updateCar(@RequestBody Car car) {
+        Optional<Car> byId = carRepository.findById(car.getId());
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+        carRepository.save(car);
+
+
+        return ResultUtil.success("更新成功");
+    }
+
+    /**
+     * 获得一个汽车
+     */
+    @GetMapping("/getCar")
+    public ResultVO getallCar(Long id) {
+        Optional<Car> byId = carRepository.findById(id);
+
+        log.info("{}", byId);
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+
+        Optional<Car> byId1 = carRepository.findById(id);
+
+        return ResultUtil.success( byId1.isPresent() ? byId : "没有这个汽车");
+
+    }
+
+
+    // 出租人 的增删改查
+
+    @Autowired
+    private LeaserRepository leaserRepository;
+    /**
+     * 增加出租人
+     * @param leaser
+     * @return
+     */
+    @PostMapping("/addLeaser")
+    public ResultVO addLeaser(@RequestBody Leaser leaser) {
+        Optional<Leaser> byId = leaserRepository.findById(leaser.getId());
+        if (byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_A_ACCOUNT);
+        }
+        leaserRepository.save(leaser);
+        List<Leaser> all1 = leaserRepository.findAll();
+        leaser.setId(all1.get(all1.size() - 1).getId() + 1);
+
+        leaserRepository.save(leaser);
+
+
+        return ResultUtil.success("增加成功");
+    }
+
+
+    /**
+     * 删除出租人
+     * @return
+     */
+    @GetMapping("/deleteLeaser")
+    public ResultVO deleteLeaser(@RequestParam Long id) {
+        Optional<Leaser> byId = leaserRepository.findById(id);
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+
+        leaserRepository.deleteById(id);
+
+        return ResultUtil.success("删除成功");
+
+    }
+
+    /**
+     * 更新出租人
+     * @param leaser
+     * @return
+     */
+    @PostMapping("/updateLeaser")
+    public ResultVO updateLeaser(@RequestBody Leaser leaser) {
+        Optional<Leaser> byId = leaserRepository.findById(leaser.getId());
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+        leaserRepository.save(leaser);
+
+
+        return ResultUtil.success("更新成功");
+    }
+
+    /**
+     * 获得一个出租人
+     */
+    @GetMapping("/getLeaser")
+    public ResultVO getallLeaser(Long id) {
+        Optional<Leaser> byId = leaserRepository.findById(id);
+        log.info("{}", byId);
+        if (!byId.isPresent()) {
+            throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_ACCOUNT);
+        }
+
+        Optional<Leaser> byId1 = leaserRepository.findById(id);
+
+        return ResultUtil.success( byId1.isPresent() ? byId : "没有这个出租人");
+
+    }
+
 }
