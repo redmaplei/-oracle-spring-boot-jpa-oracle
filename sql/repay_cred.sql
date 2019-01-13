@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  文件已创建 - 星期六-一月-12-2019   
+--  文件已创建 - 星期日-一月-13-2019   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table REPAY_CRED
@@ -47,7 +47,7 @@
    COMMENT ON COLUMN "SYSTEM"."REPAY_CRED"."THE_RENT" IS '租金';
 REM INSERTING into SYSTEM.REPAY_CRED
 SET DEFINE OFF;
-Insert into SYSTEM.REPAY_CRED (ID,BRAND,CAR_NUMBER,CHANGE,COMPANY_NAME,CRED_NUMBER,DAILY_RENT,DEPOSIT,DEPOSIT_REFUND,PAY_AMOUNT,RENT_DEAD_LINE,THE_RENT) values (62,'红旗','挂B 2a343',-1000,'科大租车',1622,500,1000,-1000,'-1000','2019-01-27 15:50:45',0);
+Insert into SYSTEM.REPAY_CRED (ID,BRAND,CAR_NUMBER,CHANGE,COMPANY_NAME,CRED_NUMBER,DAILY_RENT,DEPOSIT,DEPOSIT_REFUND,PAY_AMOUNT,RENT_DEAD_LINE,THE_RENT) values (62,'红旗','挂B 2a343',-1000,'科大租车',710,500,1000,1000,'-1000','2019-01-28 09:14:16',0);
 Insert into SYSTEM.REPAY_CRED (ID,BRAND,CAR_NUMBER,CHANGE,COMPANY_NAME,CRED_NUMBER,DAILY_RENT,DEPOSIT,DEPOSIT_REFUND,PAY_AMOUNT,RENT_DEAD_LINE,THE_RENT) values (61,'1','1',1,'1',1,1,1,1,'1','1',1);
 --------------------------------------------------------
 --  DDL for Index REPAY_CRED_PK

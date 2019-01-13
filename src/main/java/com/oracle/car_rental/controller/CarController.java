@@ -132,11 +132,10 @@ public class CarController {
      */
     @PostMapping("/addcus")
     public ResultVO addCus(@RequestBody Customers customers) {
-        Optional<Customers> byId = customersRepository.findById(customers.getId());
-        if (byId.isPresent()) {
+        Customers byId = customersRepository.findByAid(customers.getAid());
+        if (ObjectUtil.isNotNull(byId)) {
             throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_A_ACCOUNT);
         }
-        customersRepository.save(customers);
         List<Customers> all1 = customersRepository.findAll();
         customers.setId(all1.get(all1.size() - 1).getId() + 1);
 
@@ -214,7 +213,6 @@ public class CarController {
         if (byId.isPresent()) {
             throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_A_ACCOUNT);
         }
-        carRepository.save(car);
         List<Customers> all1 = customersRepository.findAll();
         car.setId(all1.get(all1.size() - 1).getId() + 1);
 
@@ -293,7 +291,6 @@ public class CarController {
         if (byId.isPresent()) {
             throw new FrameRuntimeException(FrameErrorCodeEnums.WRONG_A_ACCOUNT);
         }
-        leaserRepository.save(leaser);
         List<Leaser> all1 = leaserRepository.findAll();
         leaser.setId(all1.get(all1.size() - 1).getId() + 1);
 
@@ -351,7 +348,7 @@ public class CarController {
 
         Optional<Leaser> byId1 = leaserRepository.findById(id);
 
-        return ResultUtil.success( byId1.isPresent() ? byId : "没有这个出租人");
+        return ResultUtil.success( byId1.isPresent() ? byId : "没有这个出租人t ");
 
     }
 

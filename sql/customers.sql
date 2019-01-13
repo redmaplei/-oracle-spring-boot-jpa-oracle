@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  文件已创建 - 星期六-一月-12-2019   
+--  文件已创建 - 星期日-一月-13-2019   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table CUSTOMERS
@@ -33,7 +33,6 @@
 REM INSERTING into SYSTEM.CUSTOMERS
 SET DEFINE OFF;
 Insert into SYSTEM.CUSTOMERS (ID,AID,ID_NUMBER,NAME,PHONE_NUMBER,GENDER,RENT_CAR) values (1,2,'4509234234234234','孙尚香','133555678787','女','租车挂B 2a343');
-Insert into SYSTEM.CUSTOMERS (ID,AID,ID_NUMBER,NAME,PHONE_NUMBER,GENDER,RENT_CAR) values (23,22,'45095555666667','vbvb','133555678234','男','无');
 --------------------------------------------------------
 --  DDL for Index CUSTOMERS_PK
 --------------------------------------------------------

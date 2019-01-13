@@ -244,7 +244,7 @@ public class CarService {
         repayCred.setChange(change);
 
         // 押金退还（押金-租金）
-        Integer depositRefund = theRent - repayCred.getDeposit();
+        Integer depositRefund = repayCred.getDeposit() - theRent;
         repayCred.setDepositRefund(depositRefund);
 
         RepayCred repayCredSave = repayCredRepository.save(repayCred);
